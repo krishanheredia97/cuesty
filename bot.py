@@ -6,7 +6,7 @@ from user import User
 import os
 
 TOKEN = os.getenv('Cuesty_Discord_Bot')
-CHANNEL_ID = 1238187584434339957
+CHANNEL_ID = 1238187584434339957  # ID of the channel to send the initial message
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -25,6 +25,7 @@ class ViceModal(Modal):
         vice_name = self.children[0].value.strip()[:30]
         success, message = self.user.add_vice(vice_name, data_manager)
         await interaction.response.send_message(message, ephemeral=True)
+        await purge_and_resend_buttons(interaction)
 
 
 class AddViceButton(Button):
@@ -46,6 +47,7 @@ class RelapseSelect(Select):
         vice_name = self.values[0]
         success, message = self.user.relapse_vice(vice_name)
         await interaction.response.send_message(message, ephemeral=True)
+        await purge_and_resend_buttons(interaction)
 
 
 class RelapseButton(Button):
@@ -62,6 +64,7 @@ class RelapseButton(Button):
         view = View()
         view.add_item(RelapseSelect(user))
         await interaction.response.send_message("Select a vice to mark as relapsed:", view=view, ephemeral=True)
+        await purge_and_resend_buttons(interaction)
 
 
 class UserHistoryButton(Button):
@@ -79,6 +82,17 @@ class UserHistoryButton(Button):
             embed.add_field(name=vice["name"], value=vice_log or "No actions recorded.", inline=False)
 
         await interaction.response.send_message(embed=embed, ephemeral=True)
+        await purge_and_resend_buttons(interaction)
+
+
+async def purge_and_resend_buttons(interaction):
+    channel = interaction.channel
+    await channel.purge()
+    view = View()
+    view.add_item(AddViceButton())
+    view.add_item(RelapseButton())
+    view.add_item(UserHistoryButton())
+    await channel.send("Click to add, relapse, or view history of vices:", view=view)
 
 
 @bot.event

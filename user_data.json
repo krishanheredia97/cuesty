@@ -25,9 +25,134 @@
                         "timestamp": "2024-05-14T19:57:46"
                     }
                 ]
+            },
+            {
+                "name": "Nopor",
+                "creation_time": "2024-05-14T20:21:48",
+                "status": "Inactive",
+                "last_activation_time": "2024-05-14T20:21:48",
+                "last_relapse_time": "2024-05-14T20:25:05",
+                "relapse_count": 1,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:21:48"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:25:05"
+                    }
+                ]
+            },
+            {
+                "name": "Test",
+                "creation_time": "2024-05-14T20:25:00",
+                "status": "Active",
+                "last_activation_time": "2024-05-14T20:25:00",
+                "last_relapse_time": null,
+                "relapse_count": 0,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:25:00"
+                    }
+                ]
+            },
+            {
+                "name": "Prueba",
+                "creation_time": "2024-05-14T20:27:19",
+                "status": "Inactive",
+                "last_activation_time": "2024-05-14T20:27:19",
+                "last_relapse_time": "2024-05-14T20:31:42",
+                "relapse_count": 1,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:27:19"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:31:42"
+                    }
+                ]
+            },
+            {
+                "name": "Jdaksdj",
+                "creation_time": "2024-05-14T20:31:37",
+                "status": "Inactive",
+                "last_activation_time": "2024-05-14T20:31:37",
+                "last_relapse_time": "2024-05-14T20:47:34",
+                "relapse_count": 1,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:31:37"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:47:34"
+                    }
+                ]
+            },
+            {
+                "name": "Tom",
+                "creation_time": "2024-05-14T20:35:16",
+                "status": "Inactive",
+                "last_activation_time": "2024-05-14T20:35:16",
+                "last_relapse_time": "2024-05-14T20:39:30",
+                "relapse_count": 1,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:35:16"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:39:30"
+                    }
+                ]
+            },
+            {
+                "name": "646545",
+                "creation_time": "2024-05-14T20:39:21",
+                "status": "Inactive",
+                "last_activation_time": "2024-05-14T20:39:21",
+                "last_relapse_time": "2024-05-14T20:39:44",
+                "relapse_count": 1,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:39:21"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:39:44"
+                    }
+                ]
+            },
+            {
+                "name": "Djaskdsajd",
+                "creation_time": "2024-05-14T20:43:06",
+                "status": "Active",
+                "last_activation_time": "2024-05-14T20:43:06",
+                "last_relapse_time": null,
+                "relapse_count": 0,
+                "quit_count": 1,
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:43:06"
+                    }
+                ]
             }
         ],
-        "global_relapse_count": 1,
-        "global_quit_count": 1
+        "global_relapse_count": 6,
+        "global_quit_count": 8
     }
 }
