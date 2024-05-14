@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from discord.ui import Button, View, Modal, TextInput, Select
-import data_manager
 from user import User
 import os
 
@@ -23,7 +22,7 @@ class ViceModal(Modal):
 
     async def on_submit(self, interaction: discord.Interaction):
         vice_name = self.children[0].value.strip()[:30]
-        success, message = self.user.add_vice(vice_name, data_manager)
+        success, message = self.user.add_vice(vice_name)
         await interaction.response.send_message(message, ephemeral=True)
         await purge_and_resend_buttons(interaction)
 
@@ -107,12 +106,13 @@ class UserHistoryButton(Button):
 
         for vice in user.data["vices"]:
             vice_log = ""
-            for log_entry in vice["log"]:
+            for log_entry in vice.log:
                 vice_log += f"{log_entry['action'].capitalize()} on {log_entry['timestamp']}\n"
-            embed.add_field(name=vice["name"], value=vice_log or "No actions recorded.", inline=False)
+            embed.add_field(name=vice.name, value=vice_log or "No actions recorded.", inline=False)
 
         await interaction.response.send_message(embed=embed, ephemeral=True)
         await purge_and_resend_buttons(interaction)
+
 
 
 async def purge_and_resend_buttons(interaction):
