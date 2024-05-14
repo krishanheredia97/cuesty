@@ -3,8 +3,13 @@
         "user_id": "457752339919405066",
         "username": "krishanheredia",
         "habits": [
-            "test",
-            "smoking"
+            {
+                "name": "Smoking",
+                "creation_time": "2024-05-14T07:50:27.227961",
+                "status": "Active",
+                "last_activation_time": "2024-05-14T07:50:27.227961",
+                "last_relapse_time": null
+            }
         ]
     }
 }

@@ -1,10 +1,11 @@
 import discord
 from discord.ext import commands
 from discord.ui import Button, View, Modal, TextInput
-import data_manager
+import data_manager  # Import data_manager here as well to pass it correctly
 from user import User
+import os
 
-TOKEN = 'MTIzODE4MzM0NTc3MTI1Mzk1NQ.G82UYZ.CE8PEIbBJrawTxUb1wIhL3xDRxwWZOreEVuRx0'
+TOKEN = os.getenv('Cuesty_Discord_Bot')
 CHANNEL_ID = 1238187584434339957
 
 intents = discord.Intents.default()
@@ -20,9 +21,9 @@ class HabitModal(Modal):
         self.add_item(TextInput(label="Habit Name", placeholder="Enter the habit you want to manage"))
 
     async def on_submit(self, interaction: discord.Interaction):
-        habit_name = self.children[0].value
-        self.user.add_habit(habit_name, data_manager)
-        await interaction.response.send_message(f"'{habit_name}' has been added to your habits!", ephemeral=True)
+        habit_name = self.children[0].value.strip()[:30]  # Limit habit name to 30 characters
+        success, message = self.user.add_habit(habit_name, data_manager)
+        await interaction.response.send_message(message, ephemeral=True)
 
 class AddHabitButton(Button):
     def __init__(self):
