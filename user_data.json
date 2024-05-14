@@ -6,9 +6,16 @@
             {
                 "name": "Smoking",
                 "creation_time": "2024-05-14T07:50:27.227961",
-                "status": "Active",
+                "status": "Inactive",
                 "last_activation_time": "2024-05-14T07:50:27.227961",
-                "last_relapse_time": null
+                "last_relapse_time": "2024-05-14T08:44:53.716356"
+            },
+            {
+                "name": "Drinking",
+                "creation_time": "2024-05-14T08:44:43.988829",
+                "status": "Inactive",
+                "last_activation_time": "2024-05-14T08:44:43.988829",
+                "last_relapse_time": "2024-05-14T08:45:43.221296"
             }
         ]
     }

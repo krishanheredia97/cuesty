@@ -1,6 +1,5 @@
 from datetime import datetime
-import data_manager  # Import the data_manager module
-
+import data_manager
 
 class User:
     def __init__(self, user_id, username):
@@ -9,20 +8,16 @@ class User:
             "username": username,
             "habits": []
         }
-        self.load_user_data()  # Load existing user data
+        self.load_user_data()
 
     def load_user_data(self):
-        # Load user data to check for existing habits
         data = data_manager.load_data()
         user_id = self.data["user_id"]
         if user_id in data:
             self.data["habits"] = data[user_id].get("habits", [])
 
     def add_habit(self, habit_name, data_manager):
-        # Capitalize habit name and ensure it is within the 30 character limit
         habit_name = habit_name.capitalize()[:30]
-
-        # Check for duplicate habits
         for habit in self.data["habits"]:
             if habit["name"] == habit_name:
                 return False, f"'{habit_name}' already exists."
@@ -37,18 +32,15 @@ class User:
         data_manager.update_user_habits(self.data, habit)
         return True, f"'{habit_name}' has been added to your habits!"
 
-    def relapse_habit(self, habit_name, data_manager):
+    def get_active_habits(self):
+        return [habit["name"] for habit in self.data["habits"] if habit["status"] == "Active"]
+
+    def relapse_habit(self, habit_name):
         habit_name = habit_name.capitalize()[:30]
         for habit in self.data["habits"]:
-            if habit["name"] == habit_name:
+            if habit["name"] == habit_name and habit["status"] == "Active":
                 habit["status"] = "Inactive"
                 habit["last_relapse_time"] = datetime.utcnow().isoformat()
-        data_manager.save_data(self.data)
-
-    def activate_habit(self, habit_name, data_manager):
-        habit_name = habit_name.capitalize()[:30]
-        for habit in self.data["habits"]:
-            if habit["name"] == habit_name:
-                habit["status"] = "Active"
-                habit["last_activation_time"] = datetime.utcnow().isoformat()
-        data_manager.save_data(self.data)
+                data_manager.save_data({self.data["user_id"]: self.data})
+                return True, f"You have relapsed on '{habit_name}'."
+        return False, f"No active habit found with the name '{habit_name}'."
