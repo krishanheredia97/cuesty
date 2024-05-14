@@ -30,7 +30,7 @@ class ViceModal(Modal):
 
 class AddViceButton(Button):
     def __init__(self):
-        super().__init__(label="Add Vice", style=discord.ButtonStyle.green, custom_id="add_vice_button")
+        super().__init__(label="Add Vice", style=discord.ButtonStyle.blurple, custom_id="add_vice_button")
 
     async def callback(self, interaction: discord.Interaction):
         user = User(str(interaction.user.id), interaction.user.name)
@@ -67,9 +67,39 @@ class RelapseButton(Button):
         await purge_and_resend_buttons(interaction)
 
 
+class QuitSelect(Select):
+    def __init__(self, user):
+        self.user = user
+        options = [discord.SelectOption(label=vice) for vice in self.user.get_inactive_vices()]
+        super().__init__(placeholder="Select a vice to mark as active", options=options)
+
+    async def callback(self, interaction: discord.Interaction):
+        vice_name = self.values[0]
+        success, message = self.user.quit_vice(vice_name)
+        await interaction.response.send_message(message, ephemeral=True)
+        await purge_and_resend_buttons(interaction)
+
+
+class QuitButton(Button):
+    def __init__(self):
+        super().__init__(label="Quit", style=discord.ButtonStyle.green, custom_id="quit_button")
+
+    async def callback(self, interaction: discord.Interaction):
+        user = User(str(interaction.user.id), interaction.user.name)
+        inactive_vices = user.get_inactive_vices()
+        if not inactive_vices:
+            await interaction.response.send_message("You have no inactive vices.", ephemeral=True)
+            return
+
+        view = View()
+        view.add_item(QuitSelect(user))
+        await interaction.response.send_message("Select a vice to mark as active:", view=view, ephemeral=True)
+        await purge_and_resend_buttons(interaction)
+
+
 class UserHistoryButton(Button):
     def __init__(self):
-        super().__init__(label="Show History", style=discord.ButtonStyle.primary, custom_id="history_button")
+        super().__init__(label="Show History", style=discord.ButtonStyle.secondary, custom_id="history_button")
 
     async def callback(self, interaction: discord.Interaction):
         user = User(str(interaction.user.id), interaction.user.name)
@@ -89,8 +119,9 @@ async def purge_and_resend_buttons(interaction):
     channel = interaction.channel
     await channel.purge()
     view = View()
-    view.add_item(AddViceButton())
+    view.add_item(QuitButton())
     view.add_item(RelapseButton())
+    view.add_item(AddViceButton())
     view.add_item(UserHistoryButton())
     await channel.send("Click to add, relapse, or view history of vices:", view=view)
 
@@ -102,8 +133,9 @@ async def on_ready():
     if channel:
         await channel.purge()
         view = View()
-        view.add_item(AddViceButton())
+        view.add_item(QuitButton())
         view.add_item(RelapseButton())
+        view.add_item(AddViceButton())
         view.add_item(UserHistoryButton())
         await channel.send("Click to add, relapse, or view history of vices:", view=view)
 

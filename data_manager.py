@@ -14,6 +14,6 @@ def load_data():
 
 def save_data(data):
     existing_data = load_data()
-    existing_data.update(data)
+    existing_data[data["user_id"]] = data
     with open(FILE_PATH, 'w') as file:
         json.dump(existing_data, file, indent=4)
