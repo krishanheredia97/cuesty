@@ -27,9 +27,16 @@ class User:
             "creation_time": datetime.utcnow().isoformat(),
             "status": "Active",
             "last_activation_time": datetime.utcnow().isoformat(),
-            "last_relapse_time": None
+            "last_relapse_time": None,
+            "log": [
+                {
+                    "action": "created",
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+            ]
         }
-        data_manager.update_user_habits(self.data, habit)
+        self.data["habits"].append(habit)
+        data_manager.save_data({self.data["user_id"]: self.data})
         return True, f"'{habit_name}' has been added to your habits!"
 
     def get_active_habits(self):
@@ -41,6 +48,24 @@ class User:
             if habit["name"] == habit_name and habit["status"] == "Active":
                 habit["status"] = "Inactive"
                 habit["last_relapse_time"] = datetime.utcnow().isoformat()
+                habit["log"].append({
+                    "action": "relapsed",
+                    "timestamp": datetime.utcnow().isoformat()
+                })
                 data_manager.save_data({self.data["user_id"]: self.data})
                 return True, f"You have relapsed on '{habit_name}'."
         return False, f"No active habit found with the name '{habit_name}'."
+
+    def activate_habit(self, habit_name, data_manager):
+        habit_name = habit_name.capitalize()[:30]
+        for habit in self.data["habits"]:
+            if habit["name"] == habit_name and habit["status"] == "Inactive":
+                habit["status"] = "Active"
+                habit["last_activation_time"] = datetime.utcnow().isoformat()
+                habit["log"].append({
+                    "action": "reactivated",
+                    "timestamp": datetime.utcnow().isoformat()
+                })
+                data_manager.save_data({self.data["user_id"]: self.data})
+                return True, f"You have reactivated '{habit_name}'."
+        return False, f"No inactive habit found with the name '{habit_name}'."

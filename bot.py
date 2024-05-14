@@ -64,6 +64,23 @@ class RelapseButton(Button):
         await interaction.response.send_message("Select a habit to mark as relapsed:", view=view, ephemeral=True)
 
 
+class UserHistoryButton(Button):
+    def __init__(self):
+        super().__init__(label="Show History", style=discord.ButtonStyle.primary, custom_id="history_button")
+
+    async def callback(self, interaction: discord.Interaction):
+        user = User(str(interaction.user.id), interaction.user.name)
+        embed = discord.Embed(title=f"{user.data['username']}'s Habit History", color=discord.Color.blue())
+
+        for habit in user.data["habits"]:
+            habit_log = ""
+            for log_entry in habit["log"]:
+                habit_log += f"{log_entry['action'].capitalize()} on {log_entry['timestamp']}\n"
+            embed.add_field(name=habit["name"], value=habit_log or "No actions recorded.", inline=False)
+
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}!')
@@ -73,7 +90,8 @@ async def on_ready():
         view = View()
         view.add_item(AddHabitButton())
         view.add_item(RelapseButton())
-        await channel.send("Click to add or relapse a habit:", view=view)
+        view.add_item(UserHistoryButton())
+        await channel.send("Click to add, relapse, or view history of habits:", view=view)
 
 
 bot.run(TOKEN)

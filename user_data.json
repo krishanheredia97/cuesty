@@ -5,17 +5,37 @@
         "habits": [
             {
                 "name": "Smoking",
-                "creation_time": "2024-05-14T07:50:27.227961",
+                "creation_time": "2024-05-14T09:13:33.251059",
                 "status": "Inactive",
-                "last_activation_time": "2024-05-14T07:50:27.227961",
-                "last_relapse_time": "2024-05-14T08:44:53.716356"
+                "last_activation_time": "2024-05-14T09:13:33.251059",
+                "last_relapse_time": "2024-05-14T09:13:42.926158",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T09:13:33.251059"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T09:13:42.926158"
+                    }
+                ]
             },
             {
                 "name": "Drinking",
-                "creation_time": "2024-05-14T08:44:43.988829",
+                "creation_time": "2024-05-14T09:13:46.925357",
                 "status": "Inactive",
-                "last_activation_time": "2024-05-14T08:44:43.988829",
-                "last_relapse_time": "2024-05-14T08:45:43.221296"
+                "last_activation_time": "2024-05-14T09:13:46.925357",
+                "last_relapse_time": "2024-05-14T09:13:57.309848",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T09:13:46.925357"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T09:13:57.309848"
+                    }
+                ]
             }
         ]
     }
