@@ -1,5 +1,5 @@
 import data_manager
-from habit_manager import HabitManager
+from vice_manager import ViceManager
 
 class User:
     def __init__(self, user_id, username):
@@ -15,7 +15,7 @@ class User:
             "honor": 0,
         }
         self.load_user_data()
-        self.habit_manager = HabitManager(self.data)
+        self.vice_manager = ViceManager(self.data)
 
     def load_user_data(self):
         data = data_manager.load_data()
@@ -26,16 +26,16 @@ class User:
         data_manager.save_data(self.data)
 
     def add_vice(self, vice_name):
-        return self.habit_manager.add_habit(vice_name)
+        return self.vice_manager.add_vice(vice_name)
 
     def relapse_vice(self, vice_name):
-        return self.habit_manager.relapse_habit(vice_name)
+        return self.vice_manager.relapse_vice(vice_name)
 
     def quit_vice(self, vice_name):
-        return self.habit_manager.quit_habit(vice_name)
+        return self.vice_manager.quit_vice(vice_name)
 
     def get_active_vices(self):
-        return self.habit_manager.get_active_habits()
+        return self.vice_manager.get_active_vices()
 
     def get_inactive_vices(self):
-        return self.habit_manager.get_inactive_habits()
+        return self.vice_manager.get_inactive_vices()

@@ -1,6 +1,6 @@
 import datetime
 
-class Habit:
+class Vice:
     def __init__(self, name):
         self.name = name.capitalize()
         self.status = "Active"
@@ -10,12 +10,12 @@ class Habit:
 
     @classmethod
     def from_dict(cls, data):
-        habit = cls(data['name'])
-        habit.status = data['status']
-        habit.log = data['log']
-        habit.relapse_count = data['relapse_count']
-        habit.quit_count = data['quit_count']
-        return habit
+        vice = cls(data['name'])
+        vice.status = data['status']
+        vice.log = data['log']
+        vice.relapse_count = data['relapse_count']
+        vice.quit_count = data['quit_count']
+        return vice
 
     def to_dict(self):
         return {

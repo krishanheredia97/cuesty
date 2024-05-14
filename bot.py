@@ -114,7 +114,6 @@ class UserHistoryButton(Button):
         await purge_and_resend_buttons(interaction)
 
 
-
 async def purge_and_resend_buttons(interaction):
     channel = interaction.channel
     await channel.purge()

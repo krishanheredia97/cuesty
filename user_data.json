@@ -41,7 +41,7 @@
             },
             {
                 "name": "Test",
-                "status": "Inactive",
+                "status": "Active",
                 "log": [
                     {
                         "action": "created",
@@ -58,10 +58,14 @@
                     {
                         "action": "relapsed",
                         "timestamp": "2024-05-14T21:45:38.490945"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T22:27:27.821090"
                     }
                 ],
                 "relapse_count": 2,
-                "quit_count": 2
+                "quit_count": 3
             },
             {
                 "name": "Prueba",
@@ -85,7 +89,7 @@
             },
             {
                 "name": "Jdaksdj",
-                "status": "Active",
+                "status": "Inactive",
                 "log": [
                     {
                         "action": "created",
@@ -98,9 +102,13 @@
                     {
                         "action": "quit",
                         "timestamp": "2024-05-14T20:56:47.912418"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T22:27:32.356073"
                     }
                 ],
-                "relapse_count": 1,
+                "relapse_count": 2,
                 "quit_count": 2
             },
             {
@@ -182,10 +190,22 @@
                 ],
                 "relapse_count": 0,
                 "quit_count": 1
+            },
+            {
+                "name": "Prueba 2",
+                "status": "Active",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T22:27:36.227975"
+                    }
+                ],
+                "relapse_count": 0,
+                "quit_count": 1
             }
         ],
-        "global_relapse_count": 10,
-        "global_quit_count": 15,
+        "global_relapse_count": 11,
+        "global_quit_count": 17,
         "level": 1,
         "xp": 0,
         "gp": 0,
