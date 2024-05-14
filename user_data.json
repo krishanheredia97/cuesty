@@ -2,41 +2,32 @@
     "457752339919405066": {
         "user_id": "457752339919405066",
         "username": "krishanheredia",
-        "habits": [
+        "level": 1,
+        "xp": 0,
+        "gp": 0,
+        "honor": 0,
+        "vices": [
             {
                 "name": "Smoking",
-                "creation_time": "2024-05-14T09:13:33.251059",
+                "creation_time": "2024-05-14T19:57:31",
                 "status": "Inactive",
-                "last_activation_time": "2024-05-14T09:13:33.251059",
-                "last_relapse_time": "2024-05-14T09:13:42.926158",
+                "last_activation_time": "2024-05-14T19:57:31",
+                "last_relapse_time": "2024-05-14T19:57:46",
+                "relapse_count": 1,
+                "quit_count": 1,
                 "log": [
                     {
                         "action": "created",
-                        "timestamp": "2024-05-14T09:13:33.251059"
+                        "timestamp": "2024-05-14T19:57:31"
                     },
                     {
                         "action": "relapsed",
-                        "timestamp": "2024-05-14T09:13:42.926158"
-                    }
-                ]
-            },
-            {
-                "name": "Drinking",
-                "creation_time": "2024-05-14T09:13:46.925357",
-                "status": "Inactive",
-                "last_activation_time": "2024-05-14T09:13:46.925357",
-                "last_relapse_time": "2024-05-14T09:13:57.309848",
-                "log": [
-                    {
-                        "action": "created",
-                        "timestamp": "2024-05-14T09:13:46.925357"
-                    },
-                    {
-                        "action": "relapsed",
-                        "timestamp": "2024-05-14T09:13:57.309848"
+                        "timestamp": "2024-05-14T19:57:46"
                     }
                 ]
             }
-        ]
+        ],
+        "global_relapse_count": 1,
+        "global_quit_count": 1
     }
 }

@@ -15,36 +15,36 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 
-class HabitModal(Modal):
+class ViceModal(Modal):
     def __init__(self, user):
-        super().__init__(title="Add a New Habit")
+        super().__init__(title="Add a New Vice")
         self.user = user
-        self.add_item(TextInput(label="Habit Name", placeholder="Enter the habit you want to manage"))
+        self.add_item(TextInput(label="Vice Name", placeholder="Enter the vice you want to manage"))
 
     async def on_submit(self, interaction: discord.Interaction):
-        habit_name = self.children[0].value.strip()[:30]
-        success, message = self.user.add_habit(habit_name, data_manager)
+        vice_name = self.children[0].value.strip()[:30]
+        success, message = self.user.add_vice(vice_name, data_manager)
         await interaction.response.send_message(message, ephemeral=True)
 
 
-class AddHabitButton(Button):
+class AddViceButton(Button):
     def __init__(self):
-        super().__init__(label="Add Habit", style=discord.ButtonStyle.green, custom_id="add_habit_button")
+        super().__init__(label="Add Vice", style=discord.ButtonStyle.green, custom_id="add_vice_button")
 
     async def callback(self, interaction: discord.Interaction):
         user = User(str(interaction.user.id), interaction.user.name)
-        await interaction.response.send_modal(HabitModal(user))
+        await interaction.response.send_modal(ViceModal(user))
 
 
 class RelapseSelect(Select):
     def __init__(self, user):
         self.user = user
-        options = [discord.SelectOption(label=habit) for habit in self.user.get_active_habits()]
-        super().__init__(placeholder="Select a habit to mark as relapsed", options=options)
+        options = [discord.SelectOption(label=vice) for vice in self.user.get_active_vices()]
+        super().__init__(placeholder="Select a vice to mark as relapsed", options=options)
 
     async def callback(self, interaction: discord.Interaction):
-        habit_name = self.values[0]
-        success, message = self.user.relapse_habit(habit_name)
+        vice_name = self.values[0]
+        success, message = self.user.relapse_vice(vice_name)
         await interaction.response.send_message(message, ephemeral=True)
 
 
@@ -54,14 +54,14 @@ class RelapseButton(Button):
 
     async def callback(self, interaction: discord.Interaction):
         user = User(str(interaction.user.id), interaction.user.name)
-        active_habits = user.get_active_habits()
-        if not active_habits:
-            await interaction.response.send_message("You have no active habits.", ephemeral=True)
+        active_vices = user.get_active_vices()
+        if not active_vices:
+            await interaction.response.send_message("You have no active vices.", ephemeral=True)
             return
 
         view = View()
         view.add_item(RelapseSelect(user))
-        await interaction.response.send_message("Select a habit to mark as relapsed:", view=view, ephemeral=True)
+        await interaction.response.send_message("Select a vice to mark as relapsed:", view=view, ephemeral=True)
 
 
 class UserHistoryButton(Button):
@@ -70,13 +70,13 @@ class UserHistoryButton(Button):
 
     async def callback(self, interaction: discord.Interaction):
         user = User(str(interaction.user.id), interaction.user.name)
-        embed = discord.Embed(title=f"{user.data['username']}'s Habit History", color=discord.Color.blue())
+        embed = discord.Embed(title=f"{user.data['username']}'s Vice History", color=discord.Color.blue())
 
-        for habit in user.data["habits"]:
-            habit_log = ""
-            for log_entry in habit["log"]:
-                habit_log += f"{log_entry['action'].capitalize()} on {log_entry['timestamp']}\n"
-            embed.add_field(name=habit["name"], value=habit_log or "No actions recorded.", inline=False)
+        for vice in user.data["vices"]:
+            vice_log = ""
+            for log_entry in vice["log"]:
+                vice_log += f"{log_entry['action'].capitalize()} on {log_entry['timestamp']}\n"
+            embed.add_field(name=vice["name"], value=vice_log or "No actions recorded.", inline=False)
 
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
@@ -88,10 +88,10 @@ async def on_ready():
     if channel:
         await channel.purge()
         view = View()
-        view.add_item(AddHabitButton())
+        view.add_item(AddViceButton())
         view.add_item(RelapseButton())
         view.add_item(UserHistoryButton())
-        await channel.send("Click to add, relapse, or view history of habits:", view=view)
+        await channel.send("Click to add, relapse, or view history of vices:", view=view)
 
 
 bot.run(TOKEN)
