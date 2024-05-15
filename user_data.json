@@ -2,14 +2,213 @@
     "457752339919405066": {
         "user_id": "457752339919405066",
         "username": "krishanheredia",
-        "habits": [
+        "vices": [
             {
                 "name": "Smoking",
-                "creation_time": "2024-05-14T07:50:27.227961",
                 "status": "Active",
-                "last_activation_time": "2024-05-14T07:50:27.227961",
-                "last_relapse_time": null
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T19:57:31"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T19:57:46"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T20:56:11.048243"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 2
+            },
+            {
+                "name": "Nopor",
+                "status": "Inactive",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:21:48"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:25:05"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 1
+            },
+            {
+                "name": "Test",
+                "status": "Active",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:25:00"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:56:18.522207"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T21:45:33.527739"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T21:45:38.490945"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T22:27:27.821090"
+                    }
+                ],
+                "relapse_count": 2,
+                "quit_count": 3
+            },
+            {
+                "name": "Prueba",
+                "status": "Active",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:27:19"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:31:42"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T20:56:37.219196"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 2
+            },
+            {
+                "name": "Jdaksdj",
+                "status": "Inactive",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:31:37"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:47:34"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T20:56:47.912418"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T22:27:32.356073"
+                    }
+                ],
+                "relapse_count": 2,
+                "quit_count": 2
+            },
+            {
+                "name": "Tom",
+                "status": "Inactive",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:35:16"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:39:30"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 1
+            },
+            {
+                "name": "646545",
+                "status": "Active",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:39:21"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:39:44"
+                    },
+                    {
+                        "action": "quit",
+                        "timestamp": "2024-05-14T20:58:22.653639"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 2
+            },
+            {
+                "name": "Djaskdsajd",
+                "status": "Inactive",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:43:06"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:56:43.170218"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 1
+            },
+            {
+                "name": "Turnit",
+                "status": "Inactive",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T20:56:23.847677"
+                    },
+                    {
+                        "action": "relapsed",
+                        "timestamp": "2024-05-14T20:58:27.404166"
+                    }
+                ],
+                "relapse_count": 1,
+                "quit_count": 1
+            },
+            {
+                "name": "Dasd",
+                "status": "Active",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T21:45:49.983221"
+                    }
+                ],
+                "relapse_count": 0,
+                "quit_count": 1
+            },
+            {
+                "name": "Prueba 2",
+                "status": "Active",
+                "log": [
+                    {
+                        "action": "created",
+                        "timestamp": "2024-05-14T22:27:36.227975"
+                    }
+                ],
+                "relapse_count": 0,
+                "quit_count": 1
             }
-        ]
+        ],
+        "global_relapse_count": 11,
+        "global_quit_count": 17,
+        "level": 1,
+        "xp": 0,
+        "gp": 0,
+        "honor": 0
     }
 }

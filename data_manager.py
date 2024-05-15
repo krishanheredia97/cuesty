@@ -13,15 +13,7 @@ def load_data():
             return {}
 
 def save_data(data):
+    existing_data = load_data()
+    existing_data[data["user_id"]] = data
     with open(FILE_PATH, 'w') as file:
-        json.dump(data, file, indent=4)
-
-def update_user_habits(user_data, habit):
-    data = load_data()
-    user_id = user_data["user_id"]
-    if user_id not in data:
-        user_data["habits"] = [habit]  # Initialize with the new habit
-        data[user_id] = user_data
-    else:
-        data[user_id]["habits"].append(habit)  # Append new habit to existing list
-    save_data(data)
+        json.dump(existing_data, file, indent=4)
