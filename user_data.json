@@ -4,91 +4,52 @@
         "username": "krishanheredia",
         "vices": [
             {
-                "name": "Prueba",
+                "name": "Smoking",
                 "status": "Active",
                 "log": [
                     {
                         "action": "created",
-                        "timestamp": "2024-05-17T02:48:38.618126"
+                        "timestamp": "2024-05-17T04:55:22.300761"
                     },
                     {
                         "action": "relapsed",
-                        "timestamp": "2024-05-17T02:48:42.343381"
+                        "timestamp": "2024-05-17T05:02:39.308149"
                     },
                     {
                         "action": "quit",
-                        "timestamp": "2024-05-17T02:48:46.597960"
+                        "timestamp": "2024-05-17T05:03:16.699381"
                     },
                     {
                         "action": "relapsed",
-                        "timestamp": "2024-05-17T03:06:20.179045"
+                        "timestamp": "2024-05-17T05:03:38.713419"
                     },
                     {
                         "action": "quit",
-                        "timestamp": "2024-05-17T03:06:23.822005"
+                        "timestamp": "2024-05-17T05:08:50.952735"
                     }
                 ],
                 "relapse_count": 2,
                 "quit_count": 3,
-                "last_update": "2024-05-17T03:06:35.719360"
-            },
-            {
-                "name": "Fsdf",
-                "status": "Inactive",
-                "log": [
-                    {
-                        "action": "created",
-                        "timestamp": "2024-05-17T03:06:26.737220"
-                    },
-                    {
-                        "action": "relapsed",
-                        "timestamp": "2024-05-17T03:06:35.719360"
-                    }
-                ],
-                "relapse_count": 1,
-                "quit_count": 1,
-                "last_update": "2024-05-17T03:06:35.719360"
+                "last_update": "2024-05-17T05:09:08.183671"
             }
         ],
         "user_rewards": [
             {
-                "name": "Phone",
-                "redeemed": "no",
-                "cost": "Pending",
+                "name": "Tablet remarkable 2",
+                "redeemed": false,
+                "cost": 500,
                 "log": [
                     {
                         "action": "created",
-                        "timestamp": "2024-05-17T02:48:18.192035"
-                    }
-                ]
-            },
-            {
-                "name": "Prueba",
-                "redeemed": "no",
-                "cost": "Pending",
-                "log": [
-                    {
-                        "action": "created",
-                        "timestamp": "2024-05-17T02:48:55.146381"
-                    }
-                ]
-            },
-            {
-                "name": "Tablet",
-                "redeemed": "no",
-                "cost": "Pending",
-                "log": [
-                    {
-                        "action": "created",
-                        "timestamp": "2024-05-17T03:06:13.858316"
+                        "timestamp": "2024-05-17T05:08:13.152112"
                     }
                 ]
             }
         ],
-        "global_relapse_count": 3,
-        "global_quit_count": 4,
+        "global_relapse_count": 2,
+        "global_quit_count": 3,
         "level": 9,
-        "xp": 43216,
+        "xp": 43207,
         "gp": 360,
         "honor": 30
     }

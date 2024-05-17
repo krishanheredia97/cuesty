@@ -75,19 +75,35 @@ class User:
     def get_inactive_vices(self):
         return [vice["name"] for vice in self.data["vices"] if vice["status"] == "Inactive"]
 
-    def add_reward(self, reward_name):
+    def add_reward(self, reward_name, reward_cost):
         reward_name = reward_name.capitalize()
         if any(reward["name"] == reward_name for reward in self.data["user_rewards"]):
             return False, f"'{reward_name}' already exists."
         new_reward = {
             "name": reward_name,
-            "redeemed": "no",
-            "cost": "Pending",
+            "redeemed": False,
+            "cost": reward_cost,
             "log": [{"action": "created", "timestamp": self.current_time()}]
         }
         self.data["user_rewards"].append(new_reward)
         self.save_user_data()
         return True, f"'{reward_name}' has been added to your rewards!"
+
+    def get_unredeemed_rewards(self):
+        return [reward for reward in self.data["user_rewards"] if not reward["redeemed"]]
+
+    def redeem_reward(self, reward_name):
+        for reward in self.data["user_rewards"]:
+            if reward["name"] == reward_name and not reward["redeemed"]:
+                if self.data["gp"] >= reward["cost"]:
+                    self.data["gp"] -= reward["cost"]
+                    reward["redeemed"] = True
+                    reward["log"].append({"action": "redeemed", "timestamp": self.current_time()})
+                    self.save_user_data()
+                    return True, f"'{reward_name}' has been redeemed!"
+                else:
+                    return False, "You do not have enough GP to redeem this reward."
+        return False, f"'{reward_name}' is not available for redemption."
 
     def calculate_rewards(self):
         current_time = datetime.datetime.utcnow()
