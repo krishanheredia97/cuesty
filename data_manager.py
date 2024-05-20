@@ -1,21 +1,11 @@
-# data_manager.py
+from firebase_admin import db
 
-import json
-from pathlib import Path
+# Function to load user data from Firebase
+def load_data(user_id):
+    ref = db.reference(f'users/{user_id}')
+    return ref.get() or {}
 
-FILE_PATH = Path('user_data.json')
-
-def load_data():
-    if not FILE_PATH.exists():
-        return {}
-    with open(FILE_PATH, 'r') as file:
-        try:
-            return json.load(file)
-        except json.JSONDecodeError:
-            return {}
-
+# Function to save user data to Firebase
 def save_data(data):
-    existing_data = load_data()
-    existing_data[data["user_id"]] = data
-    with open(FILE_PATH, 'w') as file:
-        json.dump(existing_data, file, indent=4)
+    ref = db.reference(f'users/{data["user_id"]}')
+    ref.set(data)

@@ -1,10 +1,18 @@
-# bot.py
-
 import discord
 from discord.ext import commands
 import data_manager
 from user import User
 import os
+import firebase_admin
+from firebase_admin import credentials, db
+
+# Path to your Firebase service account key JSON file
+cred = credentials.Certificate('cuesty_firebase_key.json')
+
+# Initialize the Firebase app with the service account key
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://cuesty-424dc-default-rtdb.firebaseio.com/'
+})
 
 TOKEN = os.getenv('Cuesty_Discord_Bot')
 VICES_ID = 1238187584434339957  # ID of the 'vices' channel
@@ -15,8 +23,6 @@ intents.messages = True
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
-
-
 class ViceModal(discord.ui.Modal):
     def __init__(self, user):
         super().__init__(title="Add a New Vice")

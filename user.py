@@ -1,5 +1,3 @@
-# user.py
-
 import data_manager
 import datetime
 
@@ -9,20 +7,18 @@ class User:
             "user_id": user_id,
             "username": username,
             "vices": [],
-            "user_rewards": [],  # Add user_rewards to user data
+            "user_rewards": [],
             "global_relapse_count": 0,
             "global_quit_count": 0,
             "level": 1,
-            "xp": 0,  # Cumulative XP
+            "xp": 0,
             "gp": 0,
             "honor": 0,
         }
         self.load_user_data()
 
     def load_user_data(self):
-        data = data_manager.load_data()
-        if self.data["user_id"] in data:
-            self.data.update(data[self.data["user_id"]])
+        self.data.update(data_manager.load_data(self.data["user_id"]))
 
     def save_user_data(self):
         data_manager.save_data(self.data)
