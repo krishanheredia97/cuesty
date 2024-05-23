@@ -1,28 +1,35 @@
 import discord
 from discord.ext import commands
-import data_manager
 from user import User
-import os
 import firebase_admin
 from firebase_admin import credentials, db
+from dotenv import load_dotenv
+import os
 
-# Path to your Firebase service account key JSON file
-cred = credentials.Certificate('cuesty_firebase_key.json')
+# Load environment variables from .env file
+load_dotenv()
 
-# Initialize the Firebase app with the service account key
+# Get the path to the Firebase service account key JSON file from the environment variable
+firebase_credentials_path = os.getenv('FIREBASE_CREDENTIALS')
+
+# Initialize Firebase
+cred = credentials.Certificate(firebase_credentials_path)
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://cuesty-424dc-default-rtdb.firebaseio.com/'
 })
 
-TOKEN = os.getenv('Cuesty_Discord_Bot')
+TOKEN = os.getenv('DISCORD_TOKEN')
 VICES_ID = 1238187584434339957  # ID of the 'vices' channel
 REWARDS_ID = 1238187584434339956  # ID of the 'rewards' channel
+SETTINGS_ID = 1242293048659021886  # ID of the 'settings' channel
 
 intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
+intents.guilds = True  # Add this line to enable guild-related events
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
 class ViceModal(discord.ui.Modal):
     def __init__(self, user):
         super().__init__(title="Add a New Vice")
@@ -34,6 +41,7 @@ class ViceModal(discord.ui.Modal):
         success, message = self.user.add_vice(vice_name)
         await interaction.response.send_message(message, ephemeral=True)
         await purge_and_resend_vices_buttons(interaction)
+        await assign_default_role(interaction.user)
 
 
 class AddViceButton(discord.ui.Button):
@@ -239,6 +247,7 @@ async def on_ready():
     print(f'Logged in as {bot.user}!')
     vices_channel = bot.get_channel(VICES_ID)
     rewards_channel = bot.get_channel(REWARDS_ID)
+    settings_channel = bot.get_channel(SETTINGS_ID)
     if vices_channel:
         await vices_channel.purge()
         view = discord.ui.View(timeout=None)  # Set timeout to None
@@ -254,6 +263,44 @@ async def on_ready():
         view.add_item(RedeemRewardButton())
         view.add_item(MyRewardsButton())
         await rewards_channel.send("Click to add or redeem a reward, or view your rewards:", view=view)
+    if settings_channel:
+        await settings_channel.send("Use `!setgender <m/f/o>` to set your gender.")
 
+
+@bot.command(name='setgender')
+async def set_gender(ctx, gender):
+    if ctx.channel.id != SETTINGS_ID:
+        await ctx.send(f"This command can only be used in the settings channel.")
+        return
+
+    if gender.lower() not in ['m', 'f', 'o']:
+        await ctx.send("Invalid gender. Use `m` for male, `f` for female, and `o` for other.")
+        return
+
+    user = User(str(ctx.author.id), ctx.author.name)
+    user.data['gender'] = gender.lower()
+    user.save_user_data()
+    await user.update_role(ctx.author, ctx.guild)  # Ensure role is updated when gender is set
+    await ctx.send(f"Gender set to {gender} for {ctx.author.mention}")
+
+
+@bot.event
+async def on_member_update(before, after):
+    if before.roles != after.roles:
+        user = User(str(after.id), after.name)
+        await user.update_role(after, after.guild)
+
+
+@bot.event
+async def on_member_join(member):
+    user = User(str(member.id), member.name)
+    guild = member.guild
+    await user.update_role(member, guild)
+    user.save_user_data()
+
+async def assign_default_role(member):
+    guild = member.guild
+    user = User(str(member.id), member.name)
+    await user.update_role(member, guild)
 
 bot.run(TOKEN)

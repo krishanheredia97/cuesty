@@ -1,11 +1,14 @@
-import data_manager
 import datetime
+from discord.utils import get
+import data_manager
 
 class User:
-    def __init__(self, user_id, username):
+    def __init__(self, user_id, username, gender='m'):
         self.data = {
             "user_id": user_id,
             "username": username,
+            "gender": gender,  # Default gender is 'm' (male)
+            "roles": [],  # Default role will be added after initialization
             "vices": [],
             "user_rewards": [],
             "global_relapse_count": 0,
@@ -16,9 +19,19 @@ class User:
             "honor": 0,
         }
         self.load_user_data()
+        if "roles" not in self.data or not self.data["roles"]:
+            self.data["roles"] = ["Peasant"]  # Set default role if none exists
+        self.save_user_data()
 
     def load_user_data(self):
-        self.data.update(data_manager.load_data(self.data["user_id"]))
+        stored_data = data_manager.load_data(self.data["user_id"])
+        if stored_data:
+            self.data.update(stored_data)
+        # Ensure gender and roles are included even if not present in stored data
+        if "gender" not in self.data:
+            self.data["gender"] = 'm'
+        if "roles" not in self.data:
+            self.data["roles"] = ["Peasant"]
 
     def save_user_data(self):
         data_manager.save_data(self.data)
@@ -112,6 +125,7 @@ class User:
                 self.data["honor"] += int(elapsed_seconds // 86400)  # Add 1 Honor every 24 hours
                 self.level_up()  # Check for level up
                 vice["last_update"] = current_time.isoformat()
+        self.save_user_data()
 
     def level_up(self):
         while True:
@@ -120,6 +134,69 @@ class User:
                 self.data["level"] += 1
             else:
                 break
+
+    async def update_role(self, member, guild):
+        role_ids = {
+            "Peasant": 1242277817065144320,
+            "Squire": 1242278493111324773,
+            "Knight": 1242278728134823937,
+            "Noble": 1242278829691502693,
+            "Lord": 1242278971148599296,
+            "Lady": 1242279797598453842,
+            "Baron": 1242279077151510558,
+            "Baroness": 1242279864707321876,
+            "Duke": 1242279147229937674,
+            "Duchess": 1242279930646237245,
+            "Prince": 1242279703205646438,
+            "Princess": 1242279738421022941,
+            "King": 1242280031045160971,
+            "Queen": 1242280070135939153,
+            "Emperor": 1242280263602671646,
+            "Empress": 1242280297568014437
+        }
+
+        level = self.data["level"]
+        role_names = {
+            "Peasant": (1, 5),
+            "Squire": (6, 10),
+            "Knight": (11, 20),
+            "Noble": (21, 30),
+            "Lord": (31, 40),
+            "Lady": (31, 40),
+            "Baron": (41, 50),
+            "Baroness": (41, 50),
+            "Duke": (51, 60),
+            "Duchess": (51, 60),
+            "Prince": (61, 70),
+            "Princess": (61, 70),
+            "King": (71, 80),
+            "Queen": (71, 80),
+            "Emperor": (81, 100),
+            "Empress": (81, 100)
+        }
+
+        # Remove all defined roles
+        for role_name in role_names.keys():
+            role = get(guild.roles, id=role_ids[role_name])
+            if role in member.roles:
+                await member.remove_roles(role)
+
+        # Add the appropriate role based on the level and gender
+        for role_name, (min_level, max_level) in role_names.items():
+            if min_level <= level <= max_level:
+                if "Lady" in role_name or "Baroness" in role_name or "Duchess" in role_name or "Princess" in role_name or "Queen" in role_name or "Empress" in role_name:
+                    if self.data["gender"] in ['f', 'o']:
+                        new_role = get(guild.roles, id=role_ids[role_name])
+                        await member.add_roles(new_role)
+                        self.data["roles"] = [role_name]
+                        self.save_user_data()
+                        break
+                else:
+                    new_role = get(guild.roles, id=role_ids[role_name])
+                    await member.add_roles(new_role)
+                    self.data["roles"] = [role_name]
+                    self.save_user_data()
+                    break
 
     def current_time(self):
         return datetime.datetime.utcnow().isoformat()
