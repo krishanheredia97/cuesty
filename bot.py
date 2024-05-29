@@ -5,6 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, db
 from dotenv import load_dotenv
 import os
+import msg  # Import the msg module
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,7 +19,7 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://cuesty-424dc-default-rtdb.firebaseio.com/'
 })
 
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('ARMINIO_TOKEN')
 VICES_ID = 1238187584434339957  # ID of the 'vices' channel
 REWARDS_ID = 1238187584434339956  # ID of the 'rewards' channel
 SETTINGS_ID = 1242293048659021886  # ID of the 'settings' channel
@@ -29,6 +30,7 @@ intents.message_content = True
 intents.guilds = True  # Add this line to enable guild-related events
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
 
 class ViceModal(discord.ui.Modal):
     def __init__(self, user):
@@ -213,7 +215,8 @@ class MyVicesButton(discord.ui.Button):
 
         for vice in user.data["vices"]:
             status_color = "green" if vice["status"] == "Active" else "red"
-            status_text = f"```diff\n+ on withdrawal\n```" if vice["status"] == "Active" else f"```diff\n- on relapse\n```"
+            status_text = f"```diff\n+ on withdrawal\n```" if vice[
+                                                                  "status"] == "Active" else f"```diff\n- on relapse\n```"
             embed.add_field(name=vice["name"], value=status_text, inline=False)
 
         await purge_and_resend_vices_buttons(interaction)
@@ -266,6 +269,9 @@ async def on_ready():
     if settings_channel:
         await settings_channel.send("Use `!setgender <m/f/o>` to set your gender.")
 
+    # Call the send_messages function from msg.py
+    await msg.send_messages(bot)
+
 
 @bot.command(name='setgender')
 async def set_gender(ctx, gender):
@@ -298,9 +304,11 @@ async def on_member_join(member):
     await user.update_role(member, guild)
     user.save_user_data()
 
+
 async def assign_default_role(member):
     guild = member.guild
     user = User(str(member.id), member.name)
     await user.update_role(member, guild)
+
 
 bot.run(TOKEN)
