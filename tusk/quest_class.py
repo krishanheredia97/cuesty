@@ -30,7 +30,7 @@ class DifficultyLevel:
 
 class Quest:
     def __init__(self, quest_id, quest_name, quest_real_goal, quest_fict_goal, quest_cutscene, quest_stage,
-                 quest_item_reward, quest_duration_weeks, quest_enemy, quest_difficulty, reward_config):
+                 quest_item_reward, quest_duration_weeks, quest_enemy, quest_difficulty):
         self.quest_id = quest_id
         self.quest_name = quest_name
         self.quest_real_goal = quest_real_goal
@@ -41,7 +41,6 @@ class Quest:
         self.quest_duration_weeks = quest_duration_weeks
         self.quest_enemy = quest_enemy
         self.quest_difficulty = quest_difficulty
-        self.reward_config = reward_config
 
     def calculate_rewards(self, tier='yellow'):
         difficulty = DifficultyLevel(self.quest_difficulty, self.reward_config)
