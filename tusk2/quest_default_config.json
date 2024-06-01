@@ -1,0 +1,52 @@
+{
+  "difficulty_levels": {
+    "1": {
+      "xp_range": [3000, 5000],
+      "gp_range": [40, 60],
+      "honor_reward_range": [5, 10],
+      "honor_cost_range": [3, 6],
+      "quest_minimum_level_requirement": 1,
+      "quest_yellow_threshold": 0.20,
+      "quest_green_threshold": 0.40,
+      "quest_cyan_threshold": 0.90
+    },
+    "2": {
+      "xp_range": [6000, 10000],
+      "gp_range": [80, 120],
+      "honor_reward_range": [10, 15],
+      "honor_cost_range": [6, 9],
+      "quest_minimum_level_requirement": 11,
+      "quest_yellow_threshold": 0.30,
+      "quest_green_threshold": 0.50,
+      "quest_cyan_threshold": 0.90
+    },
+    "3": {
+      "xp_range": [10000, 15000],
+      "gp_range": [120, 160],
+      "honor_reward_range": [15, 20],
+      "honor_cost_range": [9, 12],
+      "quest_minimum_level_requirement": 41,
+      "quest_yellow_threshold": 0.55,
+      "quest_green_threshold": 0.70,
+      "quest_cyan_threshold": 0.90
+    },
+    "4": {
+      "xp_range": [15000, 25000],
+      "gp_range": [160, 200],
+      "honor_reward_range": [20, 25],
+      "honor_cost_range": [12, 15],
+      "quest_minimum_level_requirement": 61,
+      "quest_yellow_threshold": 0.70,
+      "quest_green_threshold": 0.80,
+      "quest_cyan_threshold": 0.90
+    }
+  },
+  "bonus_multipliers": {
+    "green": 0.10,
+    "cyan": 0.30
+  },
+  "default_values": {
+    "quest_minimum_enrolled_users": 10,
+    "quest_type": "group"
+  }
+}

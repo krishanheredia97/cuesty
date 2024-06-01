@@ -1,3 +1,4 @@
+# tusk_proposals.py
 import discord
 from discord.ext import commands
 import os
@@ -9,6 +10,8 @@ from dotenv import load_dotenv
 from quest_class import Quest
 from quest_data_manager import load_quest_data, save_quest_data
 from d_msg_summary_quest import generate_summary
+from tusk_accepted_quests import handle_accepted_quest
+
 
 load_dotenv()
 
@@ -22,9 +25,10 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 with open('quest_default_config.json', 'r') as file:
-    REWARD_CONFIG = json.load(file)
+    QUEST_DEFAULT_CONFIG = json.load(file)
 
 def generate_unique_id(length=5):
+    # Function to generate a unique ID
     return ''.join(random.choices(string.ascii_uppercase, k=length))
 
 class CreateQuestButton(discord.ui.Button):
@@ -58,6 +62,7 @@ class CreateQuestButton(discord.ui.Button):
                     "quest_real_goal": None,
                     "quest_difficulty": None,
                     "quest_type": None,
+                    "quest_daily_instances": 1
                 },
                 "Quest_Narrative": {
                     "quest_fict_goal": None,
@@ -83,13 +88,25 @@ class CreateQuestButton(discord.ui.Button):
                     "quest_participants": [],
                     "quest_enrolled_users": [],
                     "quest_validator": None,
+                    "quest_total_users": len("quest_participants")
                 },
                 "Quest_Requirements": {
                     "quest_minimum_level_requirement": None,
                     "quest_honor_cost": None,
                     "quest_item_requirement": None,
-                    "quest_minimum_enrolled_users": REWARD_CONFIG["default_values"]["quest_minimum_enrolled_users"],
-                    "quest_type": REWARD_CONFIG["default_values"]["quest_type"]
+                    "quest_minimum_enrolled_users": QUEST_DEFAULT_CONFIG["default_values"]["quest_minimum_enrolled_users"],
+                    "quest_type": QUEST_DEFAULT_CONFIG["default_values"]["quest_type"]
+                },
+                "Quest_Progress": {
+                    "quest_daily_perfect_count": None,
+                    "quest_overall_perfect_count": None,
+                    "quest_users_success_count": None,
+                    "quest_users_failure_count": None,
+                    "quest_users_unreported_count": None,
+                    "quest_current_day": None,
+                    "quest_current_instance": None,
+                    "quest_daily_success_rate": None,
+                    "quest_overall_success_rate": None
                 }
             }
 
@@ -253,7 +270,7 @@ async def ask_difficulty(thread, creator, quest_id):
         quest_duration_weeks=quest_data[quest_id]["Quest_Time"]["quest_duration_weeks"],
         quest_enemy=quest_data[quest_id]["Quest_Narrative"]["quest_enemy"],
         quest_difficulty=quest_data[quest_id]["Quest_Main"]["quest_difficulty"],
-        reward_config=REWARD_CONFIG
+        reward_config=QUEST_DEFAULT_CONFIG
     )
 
     xp_reward, gp_reward, honor_reward = quest.calculate_rewards(tier='yellow')
@@ -267,9 +284,9 @@ async def ask_difficulty(thread, creator, quest_id):
 
     quest_data[quest_id]["Quest_Requirements"].update({
         "quest_honor_cost": honor_cost,
-        "quest_minimum_enrolled_users": REWARD_CONFIG["default_values"]["quest_minimum_enrolled_users"],
-        "quest_type": REWARD_CONFIG["default_values"]["quest_type"],
-        "quest_minimum_level_requirement": REWARD_CONFIG["difficulty_levels"][str(difficulty)]["quest_minimum_level_requirement"]
+        "quest_minimum_enrolled_users": QUEST_DEFAULT_CONFIG["default_values"]["quest_minimum_enrolled_users"],
+        "quest_type": QUEST_DEFAULT_CONFIG["default_values"]["quest_type"],
+        "quest_minimum_level_requirement": QUEST_DEFAULT_CONFIG["difficulty_levels"][str(difficulty)]["quest_minimum_level_requirement"]
     })
     save_quest_data(quest_data)
 
@@ -300,8 +317,11 @@ class AcceptButton(discord.ui.Button):
             quest_data[self.quest_id]["Quest_Main"]["quest_status"] = "accepted"
             save_quest_data(quest_data)
 
-        await interaction.followup.send("Quest has been accepted.", ephemeral=True)
+            # Trigger the quest handling actions
+            guild = interaction.guild
+            await handle_accepted_quest(guild, self.quest_id)
 
+        await interaction.followup.send("Quest has been accepted and the quest setup process has started.", ephemeral=True)
 
 class DeniedButton(discord.ui.Button):
     def __init__(self, quest_id):
@@ -356,7 +376,7 @@ class SendToReviewButton(discord.ui.Button):
             quest_duration_weeks=quest_dict["Quest_Time"]["quest_duration_weeks"],
             quest_enemy=quest_dict["Quest_Narrative"]["quest_enemy"],
             quest_difficulty=quest_dict["Quest_Main"]["quest_difficulty"],
-            reward_config=REWARD_CONFIG
+            reward_config=QUEST_DEFAULT_CONFIG
         )
 
         summary = generate_summary(
@@ -409,25 +429,7 @@ class DeleteButton(discord.ui.Button):
         thread = interaction.channel
         await thread.delete()
 
-@bot.event
-async def on_ready():
-    print(f'Logged in as {bot.user}!')
-
-    try:
-        channel = bot.get_channel(CREATE_QUEST_CHANNEL_ID)
-        if channel:
-            await channel.purge()
-            await channel.send("Click the button below to create a new quest thread:", view=CreateQuestView())
-        else:
-            print(f"Channel with ID {CREATE_QUEST_CHANNEL_ID} not found.")
-    except discord.Forbidden:
-        print(f"Missing permissions to send messages in the channel with ID {CREATE_QUEST_CHANNEL_ID}.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
 class CreateQuestView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         self.add_item(CreateQuestButton())
-
-bot.run(TOKEN2)

@@ -1,32 +1,90 @@
 {
-    "1245366096954130484": {
+    "1246107444262867044": {
         "Quest_Main": {
-            "quest_id": "PVEMJ",
+            "quest_id": "OZXAF",
             "quest_creator": "krishanheredia",
-            "timestamp": "2024-05-29T13:20:15.215966+00:00",
-            "quest_status": "in review",
-            "quest_name": "T",
-            "quest_real_goal": "T",
-            "quest_difficulty": 1,
-            "quest_type": null
+            "timestamp": "2024-05-31T14:26:05.424174+00:00",
+            "quest_status": "draft",
+            "quest_name": null,
+            "quest_real_goal": null,
+            "quest_difficulty": null,
+            "quest_type": null,
+            "quest_daily_instances": 1
         },
         "Quest_Narrative": {
-            "quest_fict_goal": "T",
-            "quest_stage": "T",
-            "quest_enemy": "T",
-            "quest_cutscene": "T"
+            "quest_fict_goal": null,
+            "quest_stage": null,
+            "quest_enemy": null
+        },
+        "Quest_Time": {
+            "quest_duration_cat": null,
+            "quest_duration_num": null,
+            "quest_duration_weeks": null,
+            "quest_start_date": null,
+            "quest_end_date": null,
+            "quest_completion_time": null
+        },
+        "Quest_Rewards": {
+            "quest_xp_reward": null,
+            "quest_gp_reward": null,
+            "quest_honor_reward": null,
+            "quest_item_reward": null
+        },
+        "Quest_Users": {
+            "quest_creator": "krishanheredia",
+            "quest_participants": [],
+            "quest_enrolled_users": [],
+            "quest_validator": null,
+            "quest_total_users": 18
+        },
+        "Quest_Requirements": {
+            "quest_minimum_level_requirement": null,
+            "quest_honor_cost": null,
+            "quest_item_requirement": null,
+            "quest_minimum_enrolled_users": 10,
+            "quest_type": "group"
+        },
+        "Quest_Progress": {
+            "quest_daily_perfect_count": null,
+            "quest_overall_perfect_count": null,
+            "quest_users_success_count": null,
+            "quest_users_failure_count": null,
+            "quest_users_unreported_count": null,
+            "quest_current_day": null,
+            "quest_current_instance": null,
+            "quest_daily_success_rate": null,
+            "quest_overall_success_rate": null
+        }
+    },
+    "1246108759063789679": {
+        "Quest_Main": {
+            "quest_id": "FIVDP",
+            "quest_creator": "krishanheredia",
+            "timestamp": "2024-05-31T14:31:18.926572+00:00",
+            "quest_status": "accepted",
+            "quest_name": "M",
+            "quest_real_goal": "M",
+            "quest_difficulty": 1,
+            "quest_type": null,
+            "quest_daily_instances": 1
+        },
+        "Quest_Narrative": {
+            "quest_fict_goal": "M",
+            "quest_stage": "M",
+            "quest_enemy": "M",
+            "quest_cutscene": "M"
         },
         "Quest_Time": {
             "quest_duration_cat": "w",
             "quest_duration_num": 1,
             "quest_duration_weeks": 1,
-            "quest_start_date": "2024-05-29",
-            "quest_end_date": "2024-06-05",
+            "quest_start_date": "2024-05-31",
+            "quest_end_date": "2024-06-07",
             "quest_completion_time": null
         },
         "Quest_Rewards": {
-            "quest_xp_reward": 4214,
-            "quest_gp_reward": 59,
+            "quest_xp_reward": 3792,
+            "quest_gp_reward": 49,
             "quest_honor_reward": 7,
             "quest_item_reward": null
         },
@@ -34,104 +92,200 @@
             "quest_creator": "krishanheredia",
             "quest_participants": [],
             "quest_enrolled_users": [],
-            "quest_validator": null
+            "quest_validator": null,
+            "quest_total_users": 18
         },
         "Quest_Requirements": {
             "quest_minimum_level_requirement": 1,
-            "quest_honor_cost": 6,
+            "quest_honor_cost": 3,
             "quest_item_requirement": null,
             "quest_minimum_enrolled_users": 10,
             "quest_type": "group"
+        },
+        "Quest_Progress": {
+            "quest_daily_perfect_count": null,
+            "quest_overall_perfect_count": null,
+            "quest_users_success_count": null,
+            "quest_users_failure_count": null,
+            "quest_users_unreported_count": null,
+            "quest_current_day": null,
+            "quest_current_instance": null,
+            "quest_daily_success_rate": null,
+            "quest_overall_success_rate": null
         }
     },
-    "1245368042301427722": {
+    "1246110148104294493": {
         "Quest_Main": {
-            "quest_id": "CHATB",
+            "quest_id": "WTDKK",
             "quest_creator": "krishanheredia",
-            "timestamp": "2024-05-29T13:27:58.935821+00:00",
+            "timestamp": "2024-05-31T14:36:50.272370+00:00",
             "quest_status": "accepted",
-            "quest_name": "T",
-            "quest_real_goal": "T",
+            "quest_name": "M",
+            "quest_real_goal": "M",
             "quest_difficulty": 1,
-            "quest_type": null
+            "quest_type": null,
+            "quest_daily_instances": 1
         },
         "Quest_Narrative": {
-            "quest_fict_goal": "T",
-            "quest_stage": "T",
-            "quest_enemy": "T",
-            "quest_cutscene": "T"
+            "quest_fict_goal": "M",
+            "quest_stage": "M",
+            "quest_enemy": "M",
+            "quest_cutscene": "M"
         },
         "Quest_Time": {
             "quest_duration_cat": "w",
             "quest_duration_num": 1,
             "quest_duration_weeks": 1,
-            "quest_start_date": "2024-05-29",
-            "quest_end_date": "2024-06-05",
+            "quest_start_date": "2024-05-31",
+            "quest_end_date": "2024-06-07",
             "quest_completion_time": null
         },
         "Quest_Rewards": {
-            "quest_xp_reward": 3286,
-            "quest_gp_reward": 47,
-            "quest_honor_reward": 5,
+            "quest_xp_reward": 3589,
+            "quest_gp_reward": 54,
+            "quest_honor_reward": 10,
             "quest_item_reward": null
         },
         "Quest_Users": {
             "quest_creator": "krishanheredia",
             "quest_participants": [],
             "quest_enrolled_users": [],
-            "quest_validator": null
+            "quest_validator": null,
+            "quest_total_users": 18
         },
         "Quest_Requirements": {
             "quest_minimum_level_requirement": 1,
-            "quest_honor_cost": 5,
+            "quest_honor_cost": 3,
             "quest_item_requirement": null,
             "quest_minimum_enrolled_users": 10,
             "quest_type": "group"
+        },
+        "Quest_Progress": {
+            "quest_daily_perfect_count": null,
+            "quest_overall_perfect_count": null,
+            "quest_users_success_count": null,
+            "quest_users_failure_count": null,
+            "quest_users_unreported_count": null,
+            "quest_current_day": null,
+            "quest_current_instance": null,
+            "quest_daily_success_rate": null,
+            "quest_overall_success_rate": null
         }
     },
-    "1245373242961690624": {
+    "1246111128270934098": {
         "Quest_Main": {
-            "quest_id": "YXCZN",
+            "quest_id": "AHKAQ",
             "quest_creator": "krishanheredia",
-            "timestamp": "2024-05-29T13:48:38.878894+00:00",
+            "timestamp": "2024-05-31T14:40:43.780609+00:00",
             "quest_status": "in review",
-            "quest_name": "F",
-            "quest_real_goal": "F",
+            "quest_name": "M",
+            "quest_real_goal": "M",
             "quest_difficulty": 1,
-            "quest_type": null
+            "quest_type": null,
+            "quest_daily_instances": 1
         },
         "Quest_Narrative": {
-            "quest_fict_goal": "F",
-            "quest_stage": "F",
-            "quest_enemy": "F",
-            "quest_cutscene": "F"
+            "quest_fict_goal": "M",
+            "quest_stage": "M",
+            "quest_enemy": "M",
+            "quest_cutscene": "M"
         },
         "Quest_Time": {
-            "quest_duration_cat": "m",
+            "quest_duration_cat": "w",
             "quest_duration_num": 1,
-            "quest_duration_weeks": 4,
-            "quest_start_date": "2024-05-29",
-            "quest_end_date": "2024-06-26",
+            "quest_duration_weeks": 1,
+            "quest_start_date": "2024-05-31",
+            "quest_end_date": "2024-06-07",
             "quest_completion_time": null
         },
         "Quest_Rewards": {
-            "quest_xp_reward": 16084,
-            "quest_gp_reward": 240,
-            "quest_honor_reward": 20,
+            "quest_xp_reward": 4408,
+            "quest_gp_reward": 43,
+            "quest_honor_reward": 9,
             "quest_item_reward": null
         },
         "Quest_Users": {
             "quest_creator": "krishanheredia",
             "quest_participants": [],
             "quest_enrolled_users": [],
-            "quest_validator": null
+            "quest_validator": null,
+            "quest_total_users": 18
         },
         "Quest_Requirements": {
             "quest_minimum_level_requirement": 1,
-            "quest_honor_cost": 24,
+            "quest_honor_cost": 4,
             "quest_item_requirement": null,
             "quest_minimum_enrolled_users": 10,
             "quest_type": "group"
+        },
+        "Quest_Progress": {
+            "quest_daily_perfect_count": null,
+            "quest_overall_perfect_count": null,
+            "quest_users_success_count": null,
+            "quest_users_failure_count": null,
+            "quest_users_unreported_count": null,
+            "quest_current_day": null,
+            "quest_current_instance": null,
+            "quest_daily_success_rate": null,
+            "quest_overall_success_rate": null
+        }
+    },
+    "1246113287477792779": {
+        "Quest_Main": {
+            "quest_id": "QTMJG",
+            "quest_creator": "krishanheredia",
+            "timestamp": "2024-05-31T14:49:18.541152+00:00",
+            "quest_status": "in review",
+            "quest_name": "M",
+            "quest_real_goal": "M",
+            "quest_difficulty": 1,
+            "quest_type": null,
+            "quest_daily_instances": 1
+        },
+        "Quest_Narrative": {
+            "quest_fict_goal": "M",
+            "quest_stage": "M",
+            "quest_enemy": "M",
+            "quest_cutscene": "M"
+        },
+        "Quest_Time": {
+            "quest_duration_cat": "w",
+            "quest_duration_num": 1,
+            "quest_duration_weeks": 1,
+            "quest_start_date": "2024-05-31",
+            "quest_end_date": "2024-06-07",
+            "quest_completion_time": null
+        },
+        "Quest_Rewards": {
+            "quest_xp_reward": 4262,
+            "quest_gp_reward": 43,
+            "quest_honor_reward": 6,
+            "quest_item_reward": null
+        },
+        "Quest_Users": {
+            "quest_creator": "krishanheredia",
+            "quest_participants": [],
+            "quest_enrolled_users": [],
+            "quest_validator": null,
+            "quest_total_users": 18
+        },
+        "Quest_Requirements": {
+            "quest_minimum_level_requirement": 1,
+            "quest_honor_cost": 4,
+            "quest_item_requirement": null,
+            "quest_minimum_enrolled_users": 10,
+            "quest_type": "group"
+        },
+        "Quest_Progress": {
+            "quest_daily_perfect_count": null,
+            "quest_overall_perfect_count": null,
+            "quest_users_success_count": null,
+            "quest_users_failure_count": null,
+            "quest_users_unreported_count": null,
+            "quest_current_day": null,
+            "quest_current_instance": null,
+            "quest_daily_success_rate": null,
+            "quest_overall_success_rate": null
         }
     }
 }

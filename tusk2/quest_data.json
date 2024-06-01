@@ -1,0 +1,58 @@
+{
+    "1246363543872471042": {
+        "Quest_Main": {
+            "quest_id": "UXMFD",
+            "timestamp": "2024-06-01T07:23:44.170540+00:00",
+            "quest_status": "draft",
+            "quest_name": "The conquest of Tbilisi",
+            "quest_real_goal": "Quit smoking",
+            "quest_difficulty": "3",
+            "quest_type": "group",
+            "quest_daily_instances": "1"
+        },
+        "Quest_Narrative": {
+            "quest_fict_goal": "Conquer Georgia",
+            "quest_stage": "Georgian hills, Atlanta",
+            "quest_enemy": "Georgians"
+        },
+        "Quest_Time": {
+            "quest_duration_cat": "w",
+            "quest_duration_num": "1",
+            "quest_duration_weeks": "1",
+            "quest_start_date": null,
+            "quest_end_date": null,
+            "quest_completion_time": null
+        },
+        "Quest_Rewards": {
+            "quest_xp_reward": null,
+            "quest_gp_reward": null,
+            "quest_honor_reward": null,
+            "quest_item_reward": "Hchapuri"
+        },
+        "Quest_Users": {
+            "quest_creator": "krishanheredia",
+            "quest_participants": [],
+            "quest_enrolled_users": [],
+            "quest_validator": null,
+            "quest_total_users": 18
+        },
+        "Quest_Requirements": {
+            "quest_minimum_level_requirement": null,
+            "quest_honor_cost": null,
+            "quest_item_requirement": null,
+            "quest_minimum_enrolled_users": 10,
+            "quest_type": "group"
+        },
+        "Quest_Progress": {
+            "quest_daily_perfect_count": null,
+            "quest_overall_perfect_count": null,
+            "quest_users_success_count": null,
+            "quest_users_failure_count": null,
+            "quest_users_unreported_count": null,
+            "quest_current_day": null,
+            "quest_current_instance": null,
+            "quest_daily_success_rate": null,
+            "quest_overall_success_rate": null
+        }
+    }
+}
