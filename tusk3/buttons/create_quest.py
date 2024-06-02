@@ -73,17 +73,24 @@ async def handle_thread_message(message):
     for line in message.content.split('\n'):
         match = pattern.match(line)
         if match:
-            from tusk3.config.quest_data_manager import get_quest_item_path
             item, value = match.groups()
+            from tusk3.config.quest_data_manager import get_quest_item_path
+
+            # Validate quest_duration_cat values
+            if item == "quest_duration_cat" and value not in ['d', 'w', 'm', 'y']:
+                await message.channel.send("Invalid value for quest_duration_cat. Use 'd', 'w', 'm', or 'y'.")
+                return
+
             item_path = get_quest_item_path(item)
             if item_path:
-                updates[item_path] = value
+                if item != "quest_duration_days":  # Ensure quest_duration_days is not manually updated
+                    updates[item_path] = value
             else:
                 await message.channel.send(f"Item {item} not recognized.")
                 return  # Exit if any item is not recognized
 
     if updates:
-        # Handle special cases like quest_difficulty
+        # Handle special cases like quest_difficulty and duration calculation
         if 'Quest_Users/quest_difficulty' in updates:
             try:
                 value = int(updates['Quest_Users/quest_difficulty'])
@@ -107,6 +114,18 @@ async def handle_thread_message(message):
                 })
             except ValueError:
                 await message.channel.send("Invalid value for quest_difficulty. It should be an integer.")
+                return
+
+        # Calculate quest_duration_days if both quest_duration_cat and quest_duration_num are provided
+        if 'Quest_Time/quest_duration_cat' in updates and 'Quest_Time/quest_duration_num' in updates:
+            try:
+                from utils.quest_days_calculator import calculate_duration_days
+                duration_cat = updates['Quest_Time/quest_duration_cat']
+                duration_num = int(updates['Quest_Time/quest_duration_num'])
+                duration_days = calculate_duration_days(duration_cat, duration_num)
+                updates['Quest_Time/quest_duration_days'] = duration_days
+            except ValueError as e:
+                await message.channel.send(f"Error in calculating duration days: {e}")
                 return
 
         # Update the quest in the database

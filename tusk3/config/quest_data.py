@@ -24,7 +24,7 @@ def get_initial_quest_data(creator):
         "Quest_Time": {
             "quest_duration_cat": None,
             "quest_duration_num": None,
-            "quest_duration_weeks": None,
+            "quest_duration_days": None,
             "quest_start_date": None,
             "quest_end_date": None,
             "quest_completion_time": None
