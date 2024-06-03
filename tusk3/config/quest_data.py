@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from utils.generate_unique_id import generate_unique_id
 
+
 def get_initial_quest_data(creator):
     quest_id = generate_unique_id()
     timestamp = datetime.now(timezone.utc).isoformat()
@@ -19,7 +20,8 @@ def get_initial_quest_data(creator):
         "Quest_Narrative": {
             "quest_fict_goal": None,
             "quest_stage": None,
-            "quest_enemy": None
+            "quest_enemy": None,
+            "quest_cutscene": None
         },
         "Quest_Time": {
             "quest_duration_cat": None,

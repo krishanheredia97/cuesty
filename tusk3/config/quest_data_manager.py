@@ -6,7 +6,7 @@ QUEST_STRUCTURE = {
         "quest_difficulty", "quest_type", "quest_daily_instances"
     ],
     "Quest_Narrative": [
-        "quest_fict_goal", "quest_stage", "quest_enemy"
+        "quest_fict_goal", "quest_stage", "quest_enemy", "quest_cutscene"
     ],
     "Quest_Time": [
         "quest_duration_cat", "quest_duration_num", "quest_duration_weeks",

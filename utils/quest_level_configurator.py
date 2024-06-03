@@ -1,6 +1,7 @@
 import json
 from utils.random_number_picker import pick_random_number
 
+
 def configure_level_requirements(difficulty_level, config_path='config/quest_default_config.json'):
     """
     Configure level-related requirements based on the difficulty level.

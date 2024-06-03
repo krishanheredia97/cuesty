@@ -14,6 +14,7 @@ with open('config/quest_default_config.json', 'r') as file:
 REWARD_CONFIG = QUEST_DEFAULT_CONFIG
 
 
+
 class CreateQuestView(discord.ui.View):
     def __init__(self, bot):
         super().__init__(timeout=None)
@@ -65,6 +66,13 @@ async def handle_thread_message(message):
     # Extract the quest_id from the thread name
     quest_id = message.channel.name
 
+    if message.content.strip() == "!rev":
+        from frontend.discord_frontend.ui_View.review_button import ReviewButtons
+        from utils.quest_summary import generate_summary
+        summary = generate_summary(quest_id)
+        await message.channel.send(summary, view=ReviewButtons())
+        return quest_id
+
     # Regex to parse each line in the message
     pattern = re.compile(r"#(\w+):\s*\[(.+)\]")
 
@@ -81,6 +89,14 @@ async def handle_thread_message(message):
                 await message.channel.send("Invalid value for quest_duration_cat. Use 'd', 'w', 'm', or 'y'.")
                 return
 
+            # Ensure quest_difficulty is an integer
+            if item == "quest_difficulty":
+                try:
+                    value = int(value)
+                except ValueError:
+                    await message.channel.send("Invalid value for quest_difficulty. It should be an integer.")
+                    return
+
             item_path = get_quest_item_path(item)
             if item_path:
                 if item != "quest_duration_days":  # Ensure quest_duration_days is not manually updated
@@ -91,15 +107,18 @@ async def handle_thread_message(message):
 
     if updates:
         # Handle special cases like quest_difficulty and duration calculation
-        if 'Quest_Users/quest_difficulty' in updates:
+        if 'Quest_Main/quest_difficulty' in updates:
             try:
-                value = int(updates['Quest_Users/quest_difficulty'])
                 from utils.quest_calculator import calculate_rewards
                 from utils.quest_level_configurator import configure_level_requirements
+                logging.info(
+                    f"Calculating rewards and requirements for difficulty {updates['Quest_Main/quest_difficulty']}")
                 # Calculate the rewards based on difficulty
-                rewards = calculate_rewards(value)
+                rewards = calculate_rewards(updates['Quest_Main/quest_difficulty'])
+                logging.info(f"Rewards: {rewards}")
                 # Configure level requirements
-                requirements = configure_level_requirements(value)
+                requirements = configure_level_requirements(updates['Quest_Main/quest_difficulty'])
+                logging.info(f"Requirements: {requirements}")
                 # Add calculated rewards and requirements to updates
                 updates.update({
                     "Quest_Rewards/quest_xp_reward": rewards['xp_reward'],
@@ -128,6 +147,7 @@ async def handle_thread_message(message):
                 await message.channel.send(f"Error in calculating duration days: {e}")
                 return
 
+        logging.info(f"Updating quest {quest_id} with values: {updates}")
         # Update the quest in the database
         ref = db.reference(f'quests/{quest_id}')
         ref.update(updates)
