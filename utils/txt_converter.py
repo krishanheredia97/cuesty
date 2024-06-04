@@ -1,6 +1,7 @@
 import os
 import shutil
 
+
 def convert_files_to_txt(project_dirs, file_names, output_dir):
     """
     Converts specified files in multiple project directories to .txt files in an output directory.
@@ -37,15 +38,17 @@ def convert_files_to_txt(project_dirs, file_names, output_dir):
                     with open(os.path.join(output_dir, "zzz_LAST_INPUT.txt"), "w") as f:
                         f.write(file_names_input)
 
+
 if __name__ == "__main__":
     output_dir = r"G:\Mi unidad\Programming"
     file_names_input = input("Enter the file names (separated by commas) to convert: ")
     file_names = [name.strip().replace(" ", "_") for name in file_names_input.split(", ")]
 
     project_dirs = [
+        r"C:\Users\danie\PycharmProjects\Cuesty\arminio",
         r"C:\Users\danie\PycharmProjects\Cuesty\utils",
         r"C:\Users\danie\PycharmProjects\Cuesty\tusk3",
-        r"C:\Users\danie\PycharmProjects\Cuesty\frontend"
+        r"C:\Users\danie\PycharmProjects\Cuesty\frontend",
     ]
 
     convert_files_to_txt(project_dirs, file_names, output_dir)

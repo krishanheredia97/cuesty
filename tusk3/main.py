@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 import logging
 import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import credentials
 
 logging.basicConfig(level=logging.INFO)
 
@@ -44,7 +44,7 @@ import logging
 @bot.event
 async def on_interaction(interaction):
     if interaction.data['custom_id'] == 'send_to_review':
-        from data_manager import load_quest_data, save_quest_data
+        from arminio.data_manager import load_quest_data, save_quest_data
         channel = bot.get_channel(REVIEW_QUEST_CHANNEL_ID)
 
         quest_id = interaction.channel.name
@@ -60,7 +60,7 @@ async def on_interaction(interaction):
 
 
     elif interaction.data['custom_id'] in ['accepted', 'denied']:
-        from data_manager import load_quest_data, save_quest_data
+        from arminio.data_manager import load_quest_data, save_quest_data
         quest_id = interaction.channel.name
         quest_data = load_quest_data(quest_id)
         new_status = 'accepted' if interaction.data['custom_id'] == 'accepted' else 'denied'
@@ -68,6 +68,12 @@ async def on_interaction(interaction):
         save_quest_data(quest_data)
         await interaction.response.send_message(f"Quest {quest_id} status has been updated to {new_status}.")
         await interaction.channel.delete()
+
+        # If the quest was accepted, handle additional tasks
+        if new_status == 'accepted':
+            guild = interaction.guild
+            from tusk3.buttons.accepted_quests import handle_accepted_quest
+            await handle_accepted_quest(bot, guild, quest_id)
 
 
 bot.run(TOKEN2)

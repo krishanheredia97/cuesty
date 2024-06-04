@@ -2,7 +2,7 @@ import discord
 import json
 import logging
 import re
-from data_manager import save_quest_data
+from arminio.data_manager import save_quest_data
 from firebase_admin import db
 
 CREATE_QUEST_CHANNEL_ID = 1243061918080438272

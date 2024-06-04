@@ -1,68 +1,19 @@
-import os
-from dotenv import load_dotenv
 import discord
-import firebase_admin
-from discord.ext import commands
 from discord.ui import View
-from arminio.data_manager import load_data, save_data
-from firebase_admin import credentials
 from datetime import datetime
-from quest_data_manager import load_quest_data
-import logging
+from arminio.data_manager import load_quest_data, save_quest_data
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Get the path to the Firebase service account key JSON file from the environment variable
-firebase_credentials_path = os.getenv('FIREBASE_CREDENTIALS')
-
-# Initialize Firebase
-cred = credentials.Certificate(firebase_credentials_path)
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://cuesty-424dc-default-rtdb.firebaseio.com/'
-})
-
-# Retrieve the bot token from the environment variable
-TOKEN = os.getenv('TUSK_TOKEN')
-
-# Intents are required for certain actions like reading member info
-intents = discord.Intents.default()
-intents.guilds = True
-intents.messages = True
-intents.message_content = True
-
-# Create a bot instance with specified intents
-bot = commands.Bot(command_prefix='!', intents=intents)
-
-# Server ID where the category and channel will be created
-SERVER_ID = 1238187583734022246
-# Category ID to duplicate
 CATEGORY_ID_TO_DUPLICATE = 1245263224480202883
-# Channels to duplicate and their new names
 CHANNELS_TO_DUPLICATE = {
     1245372881014100099: '🟡│task-check-in',
     1245263225751339088: '📜│quest-info',
     1245371676334489610: '🐎│battlefield',
     1245371990731264010: '🔥│bonfire'
 }
-# Bot's role ID
 BOT_ROLE_ID = 1245506986834001992
 
-async def handle_accepted_quest(guild: discord.Guild, quest_id: str):
-    # Load quest data from quest_data_manager
-    quest_data = load_quest_data()
 
-    quest_id = str()
-    # Check if the quest_id is in the quest data
-    if quest_id not in quest_data:
-        logging.info(f"Quest ID {quest_id} not found in quest data.")
-        return None, None
-
-    # Retrieve quest name and quest code from quest data
-    quest_name = quest_data[quest_id]["Quest_Main"]["quest_name"]
-    quest_code = quest_data[quest_id]["Quest_Main"]["quest_id"]
-
-
+async def handle_accepted_quest(bot, guild, quest_id):
     # Fetch the bot's member object
     bot_member = guild.get_member(bot.user.id)
     if not bot_member:
@@ -73,7 +24,7 @@ async def handle_accepted_quest(guild: discord.Guild, quest_id: str):
     if permissions.manage_channels and permissions.manage_roles:
         try:
             # Create a new role
-            new_role = await guild.create_role(name=quest_code)
+            new_role = await guild.create_role(name=f'Role for Quest {quest_id}')
             print(f"Created role ID: {new_role.id}")
 
             # Fetch the category to duplicate
@@ -83,7 +34,7 @@ async def handle_accepted_quest(guild: discord.Guild, quest_id: str):
 
             # Duplicate the category with its permissions and rename it
             new_category = await guild.create_category(
-                name=(f"🏰│{quest_name}"),
+                name=f'Quest {quest_id} Category',
                 overwrites=original_category.overwrites
             )
 
@@ -115,6 +66,7 @@ async def handle_accepted_quest(guild: discord.Guild, quest_id: str):
         except discord.HTTPException:
             pass
 
+
 # Function to send task check-in buttons
 async def send_task_check_in_buttons(channel):
     class TaskCheckInView(View):
@@ -134,14 +86,18 @@ async def send_task_check_in_buttons(channel):
     view = TaskCheckInView()
     await channel.send("Did you complete your task today?", view=view)
 
-# Function to update user progress in Firebase
+
 async def update_user_progress(user_id, response):
-    data = load_data(user_id)
+    data = load_quest_data(user_id)
+    if 'Quest_Main' not in data:
+        data['Quest_Main'] = {'quest_id': user_id}
+
     if 'quest_individual_progress' not in data:
         data['quest_individual_progress'] = {
             'quest_individual_success_log': {'count': 0, 'timestamps': []},
             'quest_individual_failure_log': {'count': 0, 'timestamps': []}
         }
+
     timestamp = datetime.utcnow().isoformat()
     if response == 'yes':
         data['quest_individual_progress']['quest_individual_success_log']['count'] += 1
@@ -149,13 +105,5 @@ async def update_user_progress(user_id, response):
     else:
         data['quest_individual_progress']['quest_individual_failure_log']['count'] += 1
         data['quest_individual_progress']['quest_individual_failure_log']['timestamps'].append(timestamp)
-    save_data(data)
 
-@bot.event
-async def on_ready():
-    # Fetch the guild (server) using the SERVER_ID
-    guild = bot.get_guild(SERVER_ID)
-    if guild:
-        await handle_accepted_quest(guild)
-
-
+    save_quest_data(data)

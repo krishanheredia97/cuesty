@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 import discord
 import firebase_admin
 from discord.ext import commands
-from discord.ui import Button, View
-from data_manager import load_data, save_data
-from firebase_admin import credentials, db
+from discord.ui import View
+from arminio.data_manager import load_data, save_data
+from firebase_admin import credentials
 from datetime import datetime
 
 # Load environment variables from .env file
@@ -45,6 +45,7 @@ CHANNELS_TO_DUPLICATE = {
 }
 # Bot's role ID
 BOT_ROLE_ID = 1245506986834001992
+
 
 async def handle_accepted_quest(guild, quest_id):
     # Fetch the bot's member object

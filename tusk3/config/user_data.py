@@ -1,6 +1,7 @@
 import datetime
 from discord.utils import get
-import data_manager
+from arminio import data_manager
+
 
 class User:
     def __init__(self, user_id, username, gender='m'):

@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
-from user import User
+from tusk3.config.user_data import User
 import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import credentials
 from dotenv import load_dotenv
 import os
 import msg  # Import the msg module
